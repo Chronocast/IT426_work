@@ -1,15 +1,14 @@
 package controls;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -26,7 +25,9 @@ public class PracticeWithControls extends Application
     public void start(Stage stage) throws Exception
     {
         //stage.setScene(createButtons());
-        stage.setScene(createTextElements());
+        //stage.setScene(createTextElements());
+        //stage.setScene(createOptionalElements());
+        stage.setScene(createOrShowImages());
         stage.setTitle("Practicing with controls");
         stage.show();
     }
@@ -120,12 +121,63 @@ public class PracticeWithControls extends Application
     //checkboxes, radio buttons
     public Scene createOptionalElements()
     {
-        return null;
+        Text header = new Text("Favorite Colors");
+        header.setUnderline(true);
+
+        //primary layout
+        VBox box = new VBox();
+        box.setAlignment(Pos.CENTER);
+        box.setPadding(new Insets(10));
+
+        box.getChildren().add(header);
+
+        String[] choices = {"Blue", "Purple", "Pink", "Orange", "White"};
+        CheckBox[] checkBoxes = new CheckBox[choices.length];
+        for (int i = 0; i < choices.length; i++)
+        {
+            CheckBox chkBox = new CheckBox(choices[i]);
+            box.setAlignment(Pos.CENTER_LEFT);
+            box.setSpacing(10);
+
+            checkBoxes[i] = chkBox;
+            box.getChildren().add(chkBox);
+        }
+
+        //assign event handlers
+        for (int i = 0; i < checkBoxes.length; i++)
+        {
+            CheckBox chkBox = checkBoxes[i];
+
+            chkBox.selectedProperty().addListener(new ChangeListener<Boolean>()
+            {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable,
+                                    Boolean oldValue, Boolean newValue)
+                {
+                    chkBox.setText(chkBox.getText() + "(" + newValue + ")");
+                }
+            });
+        }
+
+        //checkBoxes[0].setSelected(true);
+        //checkBoxes[0].setIndeterminate(true);
+
+        //radio buttons are very similar
+        RadioButton firstButton = new RadioButton();
+        RadioButton secondButton = new RadioButton();
+
+        ToggleGroup groupedRadioButtons = new ToggleGroup();
+        firstButton.setToggleGroup(groupedRadioButtons);
+        secondButton.setToggleGroup(groupedRadioButtons);
+
+        return new Scene(box, 200, 200);
     }
 
     //display images?
     public Scene createOrShowImages()
     {
+
+
         return null;
     }
 
