@@ -3,20 +3,27 @@ package controls;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBuilder;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Random;
 
 public class PracticeWithControls extends Application
@@ -27,7 +34,9 @@ public class PracticeWithControls extends Application
         //stage.setScene(createButtons());
         //stage.setScene(createTextElements());
         //stage.setScene(createOptionalElements());
-        stage.setScene(createOrShowImages());
+        //stage.setScene(createOrShowImages());
+        //stage.setScene(createLists());
+        stage.setScene(createDialogs());
         stage.setTitle("Practicing with controls");
         stage.show();
     }
@@ -174,22 +183,84 @@ public class PracticeWithControls extends Application
     }
 
     //display images?
-    public Scene createOrShowImages()
+    public Scene createOrShowImages() throws MalformedURLException
     {
+        Image image = new Image(new File("images/pattern.jpg")
+                .toURI().toURL().toString());
+        ImageView imageControl = new ImageView(image);
 
+        //resize the view control
+        imageControl.setFitHeight(400);
+        imageControl.setFitWidth(400);
 
-        return null;
+        VBox layout = new VBox();
+        layout.getChildren().add(imageControl);
+
+        return new Scene(layout, 400, 400);
     }
 
     //lists - dropdown lists (ComboBox)m, ListView
     public Scene createLists()
     {
-        return null;
-    }
+        VBox box = new VBox();
+        box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
+        box.setPadding(new Insets(10));
+
+        //display a drop-down list
+        ObservableList<String> items = FXCollections.observableArrayList(
+                "Newspaper", "A friend", "Local Ad", "Flyer", "Internet");
+
+        ComboBox combo = new ComboBox();
+        combo.getItems().addAll(items);
+
+        //display a list
+        items = FXCollections.observableArrayList(
+                "Videogames", "Reading", "Shooting", "Martial Arts", "Archery");
+        ListView list = new ListView(items);
+
+        box.getChildren().addAll(combo, list);
+
+        //lists can support multiple selections
+        //list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue)
+            {
+                System.out.println("Selected: " + newValue);
+            }
+        });
+
+        return new Scene(box, 300, 300);
+    };
 
     //dialog boxes - Color picker, date picker
     public Scene createDialogs()
     {
-        return null;
+        VBox box = new VBox();
+        box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
+        box.setPadding(new Insets(10));
+
+        ColorPicker colors = new ColorPicker();
+        box.getChildren().add(colors);
+
+        colors.valueProperty().addListener(new ChangeListener<Color>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Color> observable,
+                                Color oldValue, Color newValue)
+            {
+                System.out.println("Color chosen: r=" + newValue.getRed() +
+                        ", g=" + newValue.getGreen() + " b=" + newValue.getBlue());
+            }
+        });
+
+        DatePicker dates = new DatePicker();
+        box.getChildren().add(dates);
+
+        return new Scene(box, 300, 300);
     }
 }
