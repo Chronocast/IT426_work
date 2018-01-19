@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -32,18 +34,18 @@ public class ImageViewerLayout extends Application
         VBox vox = new VBox();
 
         vox.setAlignment(Pos.CENTER);
-        vox.setPadding(new Insets(20));
+        vox.setPadding(new Insets(10));
 
         Image image = new Image(new File("images/bear.jpg").toURI().toURL().toString());
         final ImageView myImageView = new ImageView(image);
-        myImageView.setFitWidth(300);
-        myImageView.setFitHeight(300);
+        myImageView.setFitWidth(380);
+        myImageView.setFitHeight(350);
 
         HBox hawks = new HBox();
 
         hawks.setAlignment(Pos.CENTER);
         hawks.setPadding(new Insets(10));
-        hawks.setSpacing(5);
+        hawks.setSpacing(10);
 
         String[] animals = {"bear", "cat", "owl", "parrot"};
         RadioButton[] radioButtonGroup = new RadioButton[animals.length];
@@ -52,6 +54,7 @@ public class ImageViewerLayout extends Application
         for(int i =0; i < animals.length; i++)
         {
             RadioButton radioButton = new RadioButton(animals[i]);
+            radioButton.setFont(Font.font("Ariel", FontWeight.NORMAL, 20));
 
             radioButtonGroup[i] = radioButton;
 
@@ -74,8 +77,10 @@ public class ImageViewerLayout extends Application
                                 .toURI().toURL().toString(), true);
 
                         myImageView.setImage(newImage);
-                        myImageView.setFitWidth(300);
-                        myImageView.setFitHeight(300);
+                        myImageView.setFitWidth(380);
+                        myImageView.setFitHeight(350);
+
+
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
@@ -89,7 +94,7 @@ public class ImageViewerLayout extends Application
         vox.getChildren().add(hawks);
         vox.getChildren().add(myImageView);
 
-        return new Scene(vox, 400,400);
+        return new Scene(vox, 400,420);
     }
 
 
