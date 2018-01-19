@@ -89,7 +89,7 @@ public class ImageViewerLayout extends Application
         vox.getChildren().add(hawks);
         vox.getChildren().add(myImageView);
 
-        return new Scene(vox, 300,400);
+        return new Scene(vox, 400,400);
     }
 
 
