@@ -7,7 +7,7 @@
     -fx-background-image: url("images/circuit-pattern.jpg");
 }
 
-.text-field {
+.label {
     -fx-background-color: black;
     -fx-text-fill: #00ff00;
 
