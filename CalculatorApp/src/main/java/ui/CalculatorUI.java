@@ -6,14 +6,31 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * This class generates the UI for the Calculator App.
+ * It sets a stage and scene, placing Buttons and a label in a GridPane.
+ * <p>
+ * The dose uses a String array of symbols which it cycles through to
+ * ensure efficient and clean code.
+ *
+ * @author      Nate Hascup
+ * @since       1.0
+ */
 public class CalculatorUI extends Application
 {
+    /**
+     * This is the String array which holds
+     * all of the symbols on the calculator.
+     * <p>
+     * String is static and final, and should not be altered
+     * unless the UI is expanded beyond the planned functionality
+     *
+     * @since       1.0
+     */
     public static final String[] faceButtons =
             {
                     "7", "8", "9", "+",
@@ -22,6 +39,16 @@ public class CalculatorUI extends Application
                     "0", "ENTER" , "/", ":P"
             };
 
+    /**
+     * This is where the Stage and Scene are set.
+     * Everything with relation to the UI is created through here.
+     * <p>
+     * The stylesheets are added here, along with the app's title and ICON
+     * App uses a Google web-friendly font
+     *
+     * @param stage the platform where the app is displayed
+     * @since       1.0
+     */
     @Override
     public void start(Stage stage)
     {
