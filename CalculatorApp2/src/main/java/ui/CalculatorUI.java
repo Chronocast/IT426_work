@@ -1,6 +1,9 @@
 package ui;
 
+import calculator.Calculator;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -39,6 +42,10 @@ public class CalculatorUI extends Application
                     "0", "ENTER" , "/", ":P"
             };
 
+    public String currentNumber = "";
+    public String storedNumumber = "";
+    final Label numberLabel = labelGenerate();
+
     /**
      * This is where the Stage and Scene are set.
      * Everything with relation to the UI is created through here.
@@ -53,7 +60,11 @@ public class CalculatorUI extends Application
     public void start(Stage stage)
     {
         stage.setTitle("Calculator");
-        Scene scene = calculatorDisplay();
+
+
+
+        Scene scene = calculatorDisplay(numberLabel);
+
         stage.setScene(scene);
         stage.getIcons().add(new Image("images/calculator-icon.png"));
         scene.getStylesheets().add("stylesheet.css");
@@ -61,11 +72,12 @@ public class CalculatorUI extends Application
         stage.show();
     }
 
-    private Scene calculatorDisplay()
+    private Scene calculatorDisplay(Label numberLabel)
     {
         GridPane grid = buildGridPane();
         generateLayout(grid);
-        grid.add(labelGenerate(), 0, 5, 4, 1);
+
+        grid.add(numberLabel, 0, 5, 4, 1);
         return new Scene(grid, 300, 300);
     }
 
@@ -90,38 +102,94 @@ public class CalculatorUI extends Application
                 Button button = new Button(faceButtons[lengthCounter]);
                 button.setPrefWidth(50);
 
-                if(lengthCounter == 13)
+                if(lengthCounter == 3 || lengthCounter == 7 || lengthCounter == 11)
                 {
-                    button.setPrefWidth(110);
-                    grid.add(button, col, row, 2, 1);
+                    generateOperatorButton(grid, button, col, row);
+                }
+                else if(lengthCounter == 13)
+                {
+                    generateEnterButton(grid, button, col, row);
                 }
                 else if(lengthCounter == 14)
                 {
-                    generateStandardButton(grid, button, 3, row);
+                    generateOperatorButton(grid, button, 3, row);
                 }
                 else if(lengthCounter == 15)
                 {
                     //do nothing
                 }else{
-                    generateStandardButton(grid, button, col, row);
+                    generateNumberButton(grid, button, col, row);
                 }
                 lengthCounter++;
             }
         }
     }
 
-    private void generateStandardButton(GridPane grid, Button button, int col, int row)
+    private void generateNumberButton(GridPane grid, Button button, int col, int row)
     {
+        
+        button.setOnAction(event -> {
+            numKeyPress(event);
+        });
+
         grid.add(button, col, row);
+    }
+
+    private void generateOperatorButton(GridPane grid, Button button, int col, int row)
+    {
+
+        button.setOnAction(event -> {
+            operatorKeyPress(event);
+        });
+
+        grid.add(button, col, row);
+    }
+
+    private void generateEnterButton(GridPane grid, Button button, int col, int row)
+    {
+        button.setPrefWidth(110);
+
+        button.setOnAction(event -> {
+            enterKeyPress(event);
+        });
+
+        grid.add(button, col, row, 2, 1);
     }
 
     private Label labelGenerate()
     {
-        Label label = new Label("1234567890");
-        label.setPrefWidth(230);
-        label.setAlignment(Pos.BOTTOM_RIGHT);
-        label.setPadding(new Insets(10));
+        Label numberLabel = new Label("_");
+        numberLabel.setPrefWidth(230);
+        numberLabel.setAlignment(Pos.BOTTOM_RIGHT);
+        numberLabel.setPadding(new Insets(10));
 
-        return label;
+        return numberLabel;
+    }
+
+    private void numKeyPress(ActionEvent event)
+    {
+        currentNumber += ((Button)event.getSource()).getText();
+        numberLabel.setText(currentNumber);
+    }
+
+    private void operatorKeyPress(ActionEvent event)
+    {
+        storedNumumber = currentNumber;
+        currentNumber = "";
+
+        numberLabel.setText(currentNumber);
+    }
+
+    private void enterKeyPress(ActionEvent event)
+    {
+        //currentNumber += ((Button)event.getSource()).getText();
+
+        Calculator calculator = new Calculator();
+
+        String operator = ((Button)event.getSource()).getText();
+
+        String calculation = calculator.compute(storedNumumber, currentNumber, operator);
+
+        numberLabel.setText(calculation);
     }
 }
