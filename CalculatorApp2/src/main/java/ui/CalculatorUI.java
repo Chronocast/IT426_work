@@ -36,6 +36,7 @@ public class CalculatorUI extends Application
      */
     public static final String[] faceButtons =
             {
+                    "\u03c0", "x\u00B2", "\u221A", "C",
                     "7", "8", "9", "+",
                     "4", "5", "6", "-",
                     "1", "2", "3", "*",
@@ -44,6 +45,7 @@ public class CalculatorUI extends Application
 
     public String currentNumber = "";
     public String storedNumumber = "";
+    public String operator = "";
     final Label numberLabel = labelGenerate();
 
     /**
@@ -78,7 +80,7 @@ public class CalculatorUI extends Application
         generateLayout(grid);
 
         grid.add(numberLabel, 0, 5, 4, 1);
-        return new Scene(grid, 300, 300);
+        return new Scene(grid, 325, 325);
     }
 
     private GridPane buildGridPane()
@@ -95,26 +97,35 @@ public class CalculatorUI extends Application
     private void generateLayout(GridPane grid)
     {
         int lengthCounter = 0;
-        for (int row = 0; row < 4; row++)
+        for (int row = 0; row < 5; row++)
         {
             for (int col = 0; col < 4; col++)
             {
                 Button button = new Button(faceButtons[lengthCounter]);
                 button.setPrefWidth(50);
 
-                if(lengthCounter == 3 || lengthCounter == 7 || lengthCounter == 11)
+                if(lengthCounter == 3)
+                {
+                    generateClearButton(grid, button, col, row);
+                }
+                else if(lengthCounter == 0 ||
+                        lengthCounter == 1 ||
+                        lengthCounter == 2 ||
+                        lengthCounter == 7 ||
+                        lengthCounter == 11 ||
+                        lengthCounter == 15)
                 {
                     generateOperatorButton(grid, button, col, row);
                 }
-                else if(lengthCounter == 13)
+                else if(lengthCounter == 17)
                 {
                     generateEnterButton(grid, button, col, row);
                 }
-                else if(lengthCounter == 14)
+                else if(lengthCounter == 18)
                 {
                     generateOperatorButton(grid, button, 3, row);
                 }
-                else if(lengthCounter == 15)
+                else if(lengthCounter == 19)
                 {
                     //do nothing
                 }else{
@@ -123,6 +134,16 @@ public class CalculatorUI extends Application
                 lengthCounter++;
             }
         }
+    }
+
+    private void generateClearButton(GridPane grid, Button button, int col, int row)
+    {
+
+        button.setOnAction(event -> {
+            clearKeyPress(event);
+        });
+
+        grid.add(button, col, row);
     }
 
     private void generateNumberButton(GridPane grid, Button button, int col, int row)
@@ -166,6 +187,13 @@ public class CalculatorUI extends Application
         return numberLabel;
     }
 
+    private void clearKeyPress(ActionEvent event)
+    {
+        currentNumber = "";
+        storedNumumber = "";
+        numberLabel.setText("_");
+    }
+
     private void numKeyPress(ActionEvent event)
     {
         currentNumber += ((Button)event.getSource()).getText();
@@ -177,6 +205,8 @@ public class CalculatorUI extends Application
         storedNumumber = currentNumber;
         currentNumber = "";
 
+        operator = ((Button)event.getSource()).getText();
+
         numberLabel.setText(currentNumber);
     }
 
@@ -185,8 +215,6 @@ public class CalculatorUI extends Application
         //currentNumber += ((Button)event.getSource()).getText();
 
         Calculator calculator = new Calculator();
-
-        String operator = ((Button)event.getSource()).getText();
 
         String calculation = calculator.compute(storedNumumber, currentNumber, operator);
 
