@@ -9,8 +9,6 @@ public class Calculator
     {
         int result = 0;
         String solution = "";
-
-        System.out.println("What about here?");
         switch (operator)
         {
             case "+":
@@ -28,13 +26,13 @@ public class Calculator
             case "/":
                 if (currentNumber.equals("0"))
                 {
-                    System.out.println("Are you here?");
                     return solution = "Don't divide by 0!";
                 }else if (!(currentNumber == "0"))
                 {
                     result = Integer.parseInt(storedNumber) / Integer.parseInt(currentNumber);
                     break;
                 }
+
             case "\u03c0":
                 solution = "3.14159265359";
                 return solution;
@@ -44,8 +42,9 @@ public class Calculator
                 break;
 
             case "\u221A":
-                result = Integer.parseInt(storedNumber) / Integer.parseInt(storedNumber);
-                break;
+                double square = Math.sqrt(Integer.parseInt(storedNumber));
+                Double.toString(square);
+                return solution;
         }
 
         solution = Integer.toString(result);

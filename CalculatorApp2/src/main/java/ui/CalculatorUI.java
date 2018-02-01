@@ -102,7 +102,7 @@ public class CalculatorUI extends Application
             for (int col = 0; col < 4; col++)
             {
                 Button button = new Button(faceButtons[lengthCounter]);
-                button.setPrefWidth(50);
+                button.setPrefWidth(55);
 
                 if(lengthCounter == 3)
                 {
@@ -168,7 +168,7 @@ public class CalculatorUI extends Application
 
     private void generateEnterButton(GridPane grid, Button button, int col, int row)
     {
-        button.setPrefWidth(110);
+        button.setPrefWidth(120);
 
         button.setOnAction(event -> {
             enterKeyPress(event);
@@ -180,7 +180,7 @@ public class CalculatorUI extends Application
     private Label labelGenerate()
     {
         Label numberLabel = new Label("_");
-        numberLabel.setPrefWidth(230);
+        numberLabel.setPrefWidth(250);
         numberLabel.setAlignment(Pos.BOTTOM_RIGHT);
         numberLabel.setPadding(new Insets(10));
 
@@ -212,12 +212,8 @@ public class CalculatorUI extends Application
 
     private void enterKeyPress(ActionEvent event)
     {
-        //currentNumber += ((Button)event.getSource()).getText();
-
         Calculator calculator = new Calculator();
-
         String calculation = calculator.compute(storedNumumber, currentNumber, operator);
-
         numberLabel.setText(calculation);
     }
 }
