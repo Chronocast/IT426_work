@@ -43,9 +43,42 @@ public class CalculatorUI extends Application
                     "0", "ENTER" , "/", ":P"
             };
 
+    /**
+     * This is the String which holds
+     * the first number entered by the user
+     * <p>
+     * If user is calling a function that only needs one variable,
+     * this is the one that will be used.
+     *
+     * @since       2.0
+     */
     public String currentNumber = "";
+
+    /**
+     * This is the String which holds
+     * the second number entered by the user
+     * <p>
+     *
+     * @since       2.0
+     */
     public String storedNumumber = "";
+
+    /**
+     * This is the String which holds
+     * the symbol selected on the calculator.
+     * <p>
+     *
+     * @since       2.0
+     */
     public String operator = "";
+
+    /**
+     * This is the Label which displays the values enterd
+     * It will also display the answer for the function
+     * <p>
+     *
+     * @since       2.0
+     */
     final Label numberLabel = labelGenerate();
 
     /**
