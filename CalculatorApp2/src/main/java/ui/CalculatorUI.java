@@ -229,6 +229,10 @@ public class CalculatorUI extends Application
 
     private void numKeyPress(ActionEvent event)
     {
+        if(!("".equals(currentNumber)))
+        {
+            storedNumumber = currentNumber;
+        }
         currentNumber += ((Button)event.getSource()).getText();
         numberLabel.setText(currentNumber);
     }
@@ -248,5 +252,6 @@ public class CalculatorUI extends Application
         Calculator calculator = new Calculator();
         String calculation = calculator.compute(storedNumumber, currentNumber, operator);
         numberLabel.setText(calculation);
+        currentNumber = calculation;
     }
 }
