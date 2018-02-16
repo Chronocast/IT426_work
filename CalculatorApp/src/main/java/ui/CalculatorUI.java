@@ -5,14 +5,32 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * This class generates the UI for the Calculator App.
+ * It sets a stage and scene, placing Buttons and a label in a GridPane.
+ * <p>
+ * The dose uses a String array of symbols which it cycles through to
+ * ensure efficient and clean code.
+ *
+ * @author      Nate Hascup
+ * @since       1.0
+ */
 public class CalculatorUI extends Application
 {
+    /**
+     * This is the String array which holds
+     * all of the symbols on the calculator.
+     * <p>
+     * String is static and final, and should not be altered
+     * unless the UI is expanded beyond the planned functionality
+     *
+     * @since       1.0
+     */
     public static final String[] faceButtons =
             {
                     "7", "8", "9", "+",
@@ -21,6 +39,16 @@ public class CalculatorUI extends Application
                     "0", "ENTER" , "/", ":P"
             };
 
+    /**
+     * This is where the Stage and Scene are set.
+     * Everything with relation to the UI is created through here.
+     * <p>
+     * The stylesheets are added here, along with the app's title and ICON
+     * App uses a Google web-friendly font
+     *
+     * @param stage the platform where the app is displayed
+     * @since       1.0
+     */
     @Override
     public void start(Stage stage)
     {
@@ -33,7 +61,15 @@ public class CalculatorUI extends Application
         stage.show();
     }
 
-    public Scene calculatorDisplay()
+    private Scene calculatorDisplay()
+    {
+        GridPane grid = buildGridPane();
+        generateLayout(grid);
+        grid.add(labelGenerate(), 0, 5, 4, 1);
+        return new Scene(grid, 300, 300);
+    }
+
+    private GridPane buildGridPane()
     {
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -41,14 +77,17 @@ public class CalculatorUI extends Application
         grid.setPadding(new Insets(25));
         grid.setAlignment(Pos.TOP_CENTER);
 
-        int lengthCounter = 0;
+        return grid;
+    }
 
+    private void generateLayout(GridPane grid)
+    {
+        int lengthCounter = 0;
         for (int row = 0; row < 4; row++)
         {
             for (int col = 0; col < 4; col++)
             {
                 Button button = new Button(faceButtons[lengthCounter]);
-
                 button.setPrefWidth(50);
 
                 if(lengthCounter == 13)
@@ -58,58 +97,31 @@ public class CalculatorUI extends Application
                 }
                 else if(lengthCounter == 14)
                 {
-                    grid.add(button, 3, row);
+                    generateStandardButton(grid, button, 3, row);
                 }
                 else if(lengthCounter == 15)
                 {
                     //do nothing
                 }else{
-                    grid.add(button, col, row);
+                    generateStandardButton(grid, button, col, row);
                 }
-
                 lengthCounter++;
             }
-
         }
-
-        TextField textField = new TextField();
-        textField.setPrefWidth(130);
-        textField.setPadding(new Insets(10));
-        grid.add(textField, 0, 5, 4, 1);
-
-        return new Scene(grid, 300, 300);
     }
 
-    public GridPane buildGridPane()
+    private void generateStandardButton(GridPane grid, Button button, int col, int row)
     {
-        GridPane grid = new GridPane();
-        grid.setHgap(5);
-        grid.setVgap(5);
-        grid.setPadding(new Insets(10));
-
-        Button[] buttonArray = new Button[14];
-
-        for(int i = 0; i < faceButtons.length; i ++)
-        {
-            Button button = new Button(faceButtons[i]);
-
-            buttonArray[i] = button;
-            grid.getChildren().add(button);
-        }
-
-        return grid;
+        grid.add(button, col, row);
     }
 
-    public HBox layoutGenerate()
+    private Label labelGenerate()
     {
+        Label label = new Label("1234567890");
+        label.setPrefWidth(230);
+        label.setAlignment(Pos.BOTTOM_RIGHT);
+        label.setPadding(new Insets(10));
 
-
-        return null;
-    }
-
-    public Button buttonGenerate()
-    {
-
-        return null;
+        return label;
     }
 }

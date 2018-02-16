@@ -10,6 +10,7 @@
 .label {
     -fx-background-color: black;
     -fx-text-fill: #00ff00;
+    -fx-fill: #00ff00;
 
 }
 
