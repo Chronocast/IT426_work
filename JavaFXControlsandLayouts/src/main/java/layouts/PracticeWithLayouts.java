@@ -28,9 +28,9 @@ public class PracticeWithLayouts extends Application
     {
         stage.setTitle("Practicing with layouts");
 
-        //stage.setScene(useGridPane());
+        stage.setScene(useGridPane());
         //stage.setScene(useStackPane());
-        stage.setScene(useBorderPane());
+        //stage.setScene(useBorderPane());
 
         stage.show();
     }
