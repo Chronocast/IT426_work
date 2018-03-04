@@ -26,10 +26,7 @@ public class PartsModel
         return Collections.unmodifiableCollection(parts);
     }
 
-    public void saveParts(IExporter exporter)
-    {
-        exporter.exportParts(this);
-    }
+    public void saveParts(IExporter exporter) { exporter.exportParts(this); }
 
     public void loadParts(IImporter importer)
     {
