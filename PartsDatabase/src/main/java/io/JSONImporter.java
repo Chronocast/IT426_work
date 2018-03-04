@@ -18,15 +18,11 @@ public class JSONImporter implements IImporter
         {
             Reader reader = new FileReader("files/parts.json");
             Gson gsonImporter = new Gson();
-//            PartsModel carParts = gsonImporter.fromJson(reader, PartsModel.class);
-//
-//            reader.close();
-
             JsonElement json = gsonImporter.fromJson(reader, JsonElement.class);
             String jsonString = gsonImporter.toJson(json);
             Collection<CarPart> parts = gsonImporter.fromJson(jsonString, new TypeToken<Collection<CarPart>>(){}.getType());
             parts.forEach(X -> data.addPart(X));
-
+            reader.close();
         } catch (java.io.IOException e)
         {
             e.printStackTrace();
