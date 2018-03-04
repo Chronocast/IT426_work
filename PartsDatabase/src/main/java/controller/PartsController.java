@@ -19,7 +19,6 @@ public class PartsController
     {
         CarPart thisPart = new CarPart(id, manufacturer, listPrice);
         model.addPart(thisPart);
-        System.out.println("PartsController.addPart has added a part");
     }
 
     public Collection<CarPart> getParts()
