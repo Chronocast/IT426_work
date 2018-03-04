@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<company>
+  <part>
+    <id>42</id>
+    <manufacturer>toyo</manufacturer>
+    <listPrice>42.0</listPrice>
+  </part>
+  <part>
+    <id>9</id>
+    <manufacturer>free</manufacturer>
+    <listPrice>84.0</listPrice>
+  </part>
+  <part>
+    <id>333</id>
+    <manufacturer>Eternal</manufacturer>
+    <listPrice>3.33</listPrice>
+  </part>
+</company>

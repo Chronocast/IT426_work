@@ -39,7 +39,7 @@ public class PartsController
                 importer = new JavaImporter();
                 break;
             case "XML":
-                //importer = new XMLImporter();
+                importer = new XMLImporter();
                 break;
             default:
                 System.out.println("Input not recognized");
@@ -61,7 +61,7 @@ public class PartsController
                 exporter = new JSONExporter();
                 break;
             case "XML":
-                //exporter = new XMLExporter();
+                exporter = new XMLExporter();
                 break;
             default:
                 System.out.println("Input not recognized");
