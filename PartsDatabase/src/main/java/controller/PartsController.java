@@ -1,7 +1,6 @@
 package controller;
 
-import io.IExporter;
-import io.IImporter;
+import io.*;
 import model.CarPart;
 import model.PartsModel;
 
@@ -29,13 +28,43 @@ public class PartsController
 
     public void importParts(String strategy)
     {
-        //TODO: import parts according to the strategy given
-        //model.loadParts(strategy);
+        IImporter importer = null;
+        switch(strategy)
+        {
+            case "JSON":
+                importer = new JSONImporter();
+                break;
+            case "Java":
+                //importer = new JavaImporter();
+                break;
+            case "XML":
+                //importer = new XMLImporter();
+                break;
+            default:
+                System.out.println("Input not recognized");
+                return;
+        }
+        model.loadParts(importer);
     }
 
     public void exportParts(String strategy)
     {
-        //TODO: export parts according to the strategy given
-        model.saveParts();
+        IExporter exporter = null;
+        switch(strategy)
+        {
+            case "JSON":
+                exporter = new JSONExporter();
+                break;
+            case "Java":
+                //exporter = new JavaExporter();
+                break;
+            case "XML":
+                //exporter = new XMLExporter();
+                break;
+            default:
+                System.out.println("Input not recognized");
+                return;
+        }
+        model.saveParts(exporter);
     }
 }

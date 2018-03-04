@@ -1,18 +1,24 @@
 package io;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import model.CarPart;
-
+import model.PartsModel;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class JSONImporter
+public class JSONImporter implements IImporter
 {
-    public void getGsonImporter() throws FileNotFoundException
+    @Override
+    public void importParts(PartsModel data)
     {
         Gson gsonImporter = new Gson();
-        CarPart carParts = gsonImporter.fromJson(
-                new FileReader("parts.json"), CarPart.class);
+        try
+        {
+            CarPart carParts = gsonImporter.fromJson(new FileReader("files/parts.json"), CarPart.class);
+
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

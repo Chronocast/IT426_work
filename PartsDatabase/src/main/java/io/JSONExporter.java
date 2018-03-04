@@ -3,17 +3,26 @@ package io;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import model.CarPart;
+import model.PartsModel;
 
 import java.io.*;
+import java.util.Collection;
 
-public class JSONExporter
+public class JSONExporter implements IExporter
 {
-    public JSONExporter(CarPart[] parts) throws IOException
+    @Override
+    public void exportParts(PartsModel data)
     {
-        Writer writer = new OutputStreamWriter(new FileOutputStream("parts.json") , "UTF-8");
+        Collection<CarPart> parts = data.getParts();
 
         Gson gsonExporter = new GsonBuilder().setPrettyPrinting().create();
+        try
+        {
+            gsonExporter.toJson(parts, new FileWriter("files/parts.json"));
 
-        gsonExporter.toJson("Hello", writer);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
