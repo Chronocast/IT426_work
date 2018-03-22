@@ -57,8 +57,8 @@ public class TriangleAdapter implements IShape
 //        if (this.getFilled())
 //            {
                 graphics.setFill(Color.RED);
-                graphics.fillPolygon(new double[] {triangle.getX() - triangle.getWidth(), triangle.getX(), triangle.getX() + triangle.getHeight()},
-                                     new double[] {triangle.getY() - triangle.getWidth(), triangle.getY(), triangle.getY() + triangle.getHeight()},3);
+                graphics.fillPolygon(new double[] {0, triangle.getWidth()/2, triangle.getWidth()},
+                                     new double[] {triangle.getHeight(), 0, triangle.getHeight()},3);
             //}
     }
 }
