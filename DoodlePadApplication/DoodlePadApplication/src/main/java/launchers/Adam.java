@@ -10,6 +10,7 @@ public class Adam
                 "Color: R-" + shape.getColor().getRed() +
                       " G-" + shape.getColor().getGreen() +
                       " B-" + shape.getColor().getBlue() +
+                //"\nRadius: " + shape.get +
                 "\nX-Coord: " + shape.getXCoordinate() +
                 "\nY-Coord: " + shape.getYCoordinate() +
                 "\nThikness: " + shape.getThickness() +

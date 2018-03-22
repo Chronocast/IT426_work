@@ -1,38 +1,37 @@
 package launchers;
 
 import adapters.CircleAdapter;
+import adapters.TriangleAdapter;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import shapes.Circle;
+import shapes.Triangle;
 
 public class AdamDriver extends Application
 {
+    private CircleAdapter circleAdapter = new CircleAdapter(new Circle(200, 125, 125, 2, Color.BLUE));
+    private TriangleAdapter triangleAdapter = new TriangleAdapter((new Triangle(100, 120, 15, 15, 2,Color.RED)));
 
-    public void start(Stage stage) throws Exception
+    public void start(Stage primaryStage)
     {
-        stage.setTitle("Compu-Doodle");
-        stage.setScene(StartScreen());
-        stage.show();
+        primaryStage.setTitle("Compu-Doodle");
+        Group root = new Group();
+        Canvas canvas = new Canvas(500, 500);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        drawShapes(gc);
+        root.getChildren().add(canvas);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
-    public Scene StartScreen()
+    private void drawShapes(GraphicsContext gc)
     {
-        VBox vox = new VBox();
-        vox.setAlignment(Pos.CENTER);
-        vox.setPadding(new Insets(10));
-
-        Circle circle = new Circle(3, 50, 50, 2, Color.BLUE);
-
-        CircleAdapter adapter = new CircleAdapter(circle);
-
-        Adam adam = new Adam();
-        adam.printShape(adapter);
-
-        return new Scene(vox, 1024, 768);
+        //circleAdapter.drawShape(gc);
+        triangleAdapter.drawShape(gc);
     }
 }
